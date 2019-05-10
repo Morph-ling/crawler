@@ -28,7 +28,6 @@ import os
 import zipfile
 import shutil
 
-
 #日志
 logger = logging.getLogger("simple_example")
 logger.setLevel(logging.DEBUG)
@@ -45,12 +44,12 @@ fh.setFormatter(fomatter)
 logger.addHandler(ch)
 logger.addHandler(fh)
 
-
 #忽略ssl证书
-ssl._create_default_https_context = ssl._create_unverified_context
+#ssl._create_default_https_context = ssl._create_unverified_context
 
 #首页
 index_url = r'http://www.stickpng.com'
+#图片链接
 img_url = r'http://www.stickpng.com/img/'
 
 cats = ['Animals','At the Movies','Bots and Robots','Celebrities','Clothes','Comics and Fantasy',
@@ -70,6 +69,7 @@ headers = {
 cookieJar=cookielib.CookieJar()
 opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookieJar))
 
+# 获取图片详情地址
 def get_imgs(url,f):
     try:
         request = urllib2.Request("http://www.stickpng.com"+url, headers = headers);
@@ -91,8 +91,8 @@ def get_imgs(url,f):
     except Exception as e:
         return;
 
-root = "";
-
+# 下载图片
+root = "";#文件根目录位置（默认当前目录）
 def download_imgs(url):
     try:
         dir_path = url.replace("\n","");
@@ -115,15 +115,15 @@ def download_imgs(url):
         print e
 
 def crawl():
-    # logger.info('获取分类url');
-    # f = open("cats_url.txt",'a+');
+    # logger.info('获取图片详情地址');
+    # f = open("stickpng_img_urls.txt",'a+');
     # for cat in cats:
     #     cat = cat.replace(" ", "-").lower();
     #     get_imgs("/cat/" + cat,f);
     # f.close()
 
     # logger.info('下载图片');
-    # f = open("cats_url.txt",'r');
+    # f = open("stickpng_img_urls.txt",'r');
     # line = f.readline()
     # while line: 
     #     download_imgs(line);
